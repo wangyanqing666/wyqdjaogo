@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <title>Title</title>
+</head>
+<body>
+{#{% csrf_token %}　#}
+<p>用户名：<input type="text" name="name"></p>
+<p>密码：<input type="text" name="password" id="pwd"></p>
+<button class="btn">登录</button>
+</body>
+<script>
+            var  csrfmiddlewaretoken=$('[name="csrfmiddlewaretoken"]').val()　// 通过属性选择器获取
+                console.log(csrfmiddlewaretoken)
+
+    $(".btn").click(function () {
+        $.ajax({
+            url: '/wyqlogin/',
+            type: 'post',
+            data: {
+                'name': $('[name="name"]').val(),
+                'password': $("#pwd").val(),
+                'csrfmiddlewaretoken': $('[name="csrfmiddlewaretoken"]').val()　// 通过属性选择器获取
+
+            },
+            success: function (data) {
+                console.log(data)
+            }
+        })
+    })
+</script>
+</html>

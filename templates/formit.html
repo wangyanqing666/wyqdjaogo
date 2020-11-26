@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script>
+        function beautify() {
+            jsonStr = $('#editor1').val()
+            var input;
+            try {
+                if (jsonStr.length == 0) {
+                    return false;
+                } else if (!isJSON(jsonStr)) {
+
+                    return alert('您输入的内容非正规json格式，请检查后重试！');
+
+                }
+                input = eval('(' + jsonStr + ')');
+            } catch (error) {
+                console.log(error);
+                return alert('JSON 格式化错误！');
+
+            }
+
+            $('#editor1').val(JSON.stringify(input, null, 4));
+
+        };
+
+        function isJSON(str) {
+            if (typeof str === 'string') {
+                try {
+                    let obj = JSON.parse(str);
+                    if (typeof obj === 'object' && obj) {
+                        return obj;
+                    } else {
+                        return false;
+                    }
+                } catch (error) {
+                    console.log(error);
+                    return false;
+                }
+            }
+        };
+
+        $(function () {
+
+            $('#tj1').click(function () {
+                var jsonStr = $('#editor1').val();
+                var env = $('#env').val();
+                var debug = $('#debug').val();
+                try {
+                    if (jsonStr.length == 0) {
+                        return false;
+                    } else if (!isJSON(jsonStr)) {
+
+                        return alert('您输入的内容非正规json格式，请检查后重试！');
+                    }
+                } catch (error) {
+                    return alert('JSON 格式化错误！');
+
+                }
+
+                $.ajax({
+                    url: /alsk/,
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify({jstr: jsonStr, env: env, debug: debug}),
+                    success: function (respone) {
+                        if (respone.erron == 0) {
+                            // alert('接口请求成功')
+                            $('#editor2').val(respone.oldreq)
+                            $('#editor3').val(respone.goods_par)
+                            $('#editor4').val(respone.goods_req)
+
+                        } else {
+                            $('#warning1').text(respone.errmsg)
+
+                        }
+                    },
+                    error: function () {
+                        alert('服务器超时，请重试！');
+                    }
+                });
+
+            });
+
+        });
+
+
+    </script>
+
+
+</head>
+
+<body>
+<div style="border:5px solid #ddd;">
+    <h1>黑门儿们</h1>
+    {#        <form action="/alsk/" method="POST">#}
+    <div>
+        <span>选择环境—必填项：</span>
+        <select id="env" name="env">
+            {#                        <option value="empty">请选择</option>#}
+            <option value="http://mobileapi.t.elong.com/">新网关灰度1</option>
+            <option value="http://mobileapi-huidu2.vip.elong.com/">新网关灰度2</option>
+        </select>
+        <br>
+        <span>是否debug:</span>
+        <select id="debug" name="debug">
+            <option value="false">否</option>
+            <option value="true">是</option>
+        </select>
+        <br>
+        <button type="button" class="btn btn-warning" id="formatting" onclick="beautify();">格式化</button>
+
+        {#                <button type="submit" class="btn btn-warning" >提交</button>#}
+        <button type="button" class="btn btn-warning" id="tj1">提交</button>
+
+
+        <div class="col-md-12" id="warning">
+            <p><strong id="warning1"></strong></p>
+        </div>
+
+    </div>
+    <div>
+                <textarea class="column " style="height: 671px; width: 300px;" id="editor1"
+                          placeholder="Fiddle抓包请求" spellcheck="false" name="jstr">{{ datate }}</textarea>
+        <textarea id="editor2" style="height: 671px; width: 300px;" class="clumn " placeholder="原始出参"
+                  name="jstr1">{{ oldreq }}</textarea>
+        <textarea id="editor3" style="height: 671px; width: 300px;" class="clumn " placeholder="商品库出参"
+                  name="jstr2">{{ goods_par }}</textarea>
+        <textarea id="editor4" style="height: 671px; width: 300px;" class="clumn " placeholder="商品库入参"
+                  name="jstr2">{{ goods_req }}</textarea>
+    </div>
+
+    {#        </form>#}
+
+</div>
+</body>
+
+</html>

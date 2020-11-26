@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <title>login</title>
+</head>
+<body>
+<div>
+
+    <br>
+     <div>
+         用户名：<input type="text" name="username" id="username">
+     </div>
+    <br>
+{#    <div>#}
+{#        图片验证码：<input type="text" name="imageid" id="imageid">#}
+{#         <div>#}
+{#             <img src='/static/2.png' id="oImg"  width="160px" hight="200px">#}
+{##}
+{##}
+{##}
+{#         </div>#}
+{#   </div>#}
+     <br>
+    <div>
+         密码：<input type="password" name="password" id="password">
+    </div>
+     <br>
+{#    <div>#}
+{#        确认密码：<input type="password" name="imageid" id="password2">#}
+{#    </div>#}
+
+    <br>
+    <div>
+            <input type="button" id="submit" onclick="SendForm();" value="提交">
+
+    </div>
+    <br>
+    <div>
+            <span id="errormessage" ></span>
+
+    </div>
+</div>
+</body>
+
+<script>
+    function SendForm(){
+        $(function () {
+
+            $.ajax({
+                url: "{% url 'loginq' %}",//请求路径
+                type: 'post',            //请求方式
+
+                //(1)默认数据请求
+                //data: { //请求数据(post请求的csrf认证键值对固定)
+                  //  username: $('#username').val(),
+                    //password: $('#password').val(),
+                    //csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                //},
+
+                //(2)JSON数据请求
+                async: true,
+                timeout: 2000,
+                dataType:'json',
+		        contentType:'application/json;charset=UTF-8',
+                headers:{'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()},//在请求头通过csrf认证，键固定
+                data:JSON.stringify({
+                    username: $('#username').val(),
+                    password: $('#password').val(),
+                }),
+
+                success: function (data) {//请求回调函数
+
+                    if (data.sta == 1) {
+                        alert('login成功')
+                    } else {
+                        alert('login失败')
+                        {#$('#status').text('账号或密码有误！')#}
+
+                    }
+
+                },
+                complete : function(XMLHttpRequest,status){ //请求完成后最终执行参
+                    console.log(status)
+                    console.log('1111111')
+            　　　　if(status=='parsererror'){//超时,status还有success,error等值的情况
+             　　　　　 ajaxTimeoutTest.abort();
+            　　　　　  alert("超时");
+            　　　　}
+            　　}
+            })
+            // alert('22222222');
+
+        });
+
+
+
+        // 设置超时
+        {% comment %}
+        $.ajax({
+        type: "GET",
+        url: "https://www.google.com.hk",
+        timeout: 2000,
+        success: function(result) {},
+        error : function(XMLHttpRequest,status){ //请求完成后最终执行参
+                    console.log(status)
+                    console.log('1111111')
+            　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+            　　　　　  alert("超时");
+            　　　　}
+            　　}
+      });
+      {% endcomment %}
+
+    }
+
+
+
+    {% comment%}
+
+    //以post方式请求
+    $(function () {
+        $('#submit').click(function () {
+
+            $.ajax({
+                url: "{% url 'loginq' %}",//请求路径
+                type: 'post',            //请求方式
+
+                //(1)默认数据请求
+                //data: { //请求数据(post请求的csrf认证键值对固定)
+                  //  username: $('#username').val(),
+                    //password: $('#password').val(),
+                    //csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                //},
+
+                //(2)JSON数据请求
+                dataType:'json',
+		        contentType:'application/json;charset=UTF-8',
+                headers:{'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()},//在请求头通过csrf认证，键固定
+                data:JSON.stringify({
+                    username: $('#username').val(),
+                    password: $('#password').val(),
+                }),
+
+                success: function (data) {//请求回调函数
+
+                    if (data.sta == 1) {
+                        {#alert('login成功')#}
+                    } else {
+                        {#alert('login失败')#}
+                        $('#status').text('账号或密码有误！')
+
+                    }
+
+                }
+            })
+        })
+    });
+    {%  endcomment%}
+</script>
+</html>

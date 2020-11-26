@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+
+
+    function beautify() {
+
+        var input;
+        try {
+            if ($('#editor1').val().length == 0) {
+                return false;
+            }
+
+            input = eval('(' + $('#editor1').val() + ')');
+        } catch (error) {
+
+            return alert('JSON 数据错误');
+
+        }
+
+        $('#editor1').val(JSON.stringify(input, null, 4));
+
+    }
+
+
+    /*
+        $(document).ready(function () {
+            $('#editor2').blur(function () {
+                var input;
+                try {
+                    if ($('#editor1').val().length == 0) {
+                        return;
+                    }
+    
+                    input = eval('(' + $('#editor1').val() + ')');
+                } catch (error) {
+                    return alert("Input data is not valid JSON, please check. Error: " );
+                }
+    
+                $('#editor2').val(JSON.stringify(input, null, 4));
+            })
+        });
+    
+    
+    
+        function minify() {
+            var jsonStr = $('#editor1').val();
+    
+            if (jsonStr.trim().length == 0) {
+                return false;
+            }
+    
+    
+            try {
+                var json = JSON.parse(jsonStr);
+    
+                $("#warning").html("<div class=\"alert alert-success\">JSON 数据合法</div>").show().delay(5000).fadeOut();
+    
+            } catch (e) {
+    
+                $("#warning").html("<div class=\"alert alert-danger\">JSON 数据错误：" + e + "</div>").show().delay(5000).fadeOut();
+    
+            }
+    
+        };
+    
+        $(document).ready(function () {
+    
+            $("#submitBTN1234").click(function () {
+                var jsonStr = $('#editor1').val();
+    
+                if (jsonStr.trim().length == 0) {
+                    return false;
+                }
+    
+    
+                try {
+                    var json = JSON.parse(jsonStr);
+    
+                    $("#warning").html("<div class=\"alert alert-success\">JSON 数据合法</div>").show().delay(5000).fadeOut();
+    
+                } catch (e) {
+    
+                    $("#warning").html("<div class=\"alert alert-danger\">JSON 数据错误：" + e + "</div>").show().delay(5000).fadeOut();
+    
+                }
+    
+            })
+        })
+    
+    
+    
+    
+    
+    */
+
+    $(document).ready(function () {
+        $("#submitBTN133").click(function () {
+            var jstr = $("#editor1").val();
+            var key = $("#key1").val();
+            alert(key)
+            $.ajax({
+
+                url: "/login/",
+                type: "POST",
+                data: { key: key, jstr: jstr },
+                dataType: "text",
+                timeout: 1000000000, //超时时间设置，单位毫秒
+
+                success: function (result) {
+                    var obj = JSON.parse(result);
+                    for (var i = 0; i < obj.value.length; i++) {
+                        console.log(obj.value[i])
+                       // $("#editor2").html(obj.value[i])
+                        $("#editor2").html("<div class=\"alert alert-success\"><ul><li>{{obj.value[i]}}</li></ul></div>")
+                    }
+
+                },
+                error: function (msg) {
+                    return ("添加关键词失败");
+                }
+
+            })
+
+        })
+
+    })
+
+
+
+
+</script>
+
+
+<body>
+    <form action="/login/" method="post">
+        <p>First name: <input type="text" id="key1" name="fname" /></p>
+        <p>Last name: <input type="text" id="key2" name="key" /></p>
+        <div>
+            <textarea class="column " id="editor1" name="jstr" placeholder="给一个JSON字符串，然后会自动格式化" spellcheck="false"
+                style="height: 600px; width: 500px;">{{ redata.jstr }}</textarea>
+        </div>
+        <button type="button" class="btn btn-warning" id="submitBTN">验证</button>
+        <button type="button" class="btn btn-success" id="submitBTN1" onclick="beautify();">格式化</button>
+        <!--
+    <input type="submit" class="btn btn-warning" value="Submit"/>
+
+-->
+
+        <button type="button" class="btn btn-success" id="submitBTN133"> 提交</button>
+
+
+        <div class="col-md-12" id="warning" style="display: none;">
+            <div class="alert alert-warning">
+                <a href="#" class="close" data-dismiss="alert">
+                    &times;
+                </a>
+                <p><strong>警告！</strong>JSON 格式错误。</p>
+                <p id="warning-info"></p>
+            </div>
+        </div>
+
+
+        <div class="col-md-12" id="warning">
+            <p><strong>{{ redata.error }}</strong></p>
+
+        </div>
+
+
+        <p>
+            <textarea class="column " id="editor2" name="jstr2" placeholder="给一个JSON字符串，然后会自动格式化" spellcheck="false"
+                style="height: 671px; width: 418px;">
+        
+
+            </textarea>
+        </p>
+    </form>
+</body>
+
+</html>
