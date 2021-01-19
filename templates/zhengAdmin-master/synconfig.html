@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <title>jean同步配置</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <style>
+            .no{
+                position:fixed;
+float:left;
+            }
+        </style>
+</head>
+
+<body style="margin:20px">
+
+    <div class="container-fluid text-danger  ">
+
+        <div class="form-group">
+            <label class="control-label">cookies失效替换:</label>
+            <input style="width:480px;height:50px;" type="text" id="key4" name="key4">
+            <button type="button" class="btn btn-warning" id="tj4" onclick="recookies()">提交</button>
+        </div>
+        <form role="form">
+            <div class="form-group">
+                <label for="name">以下功能输出结果:</label>
+                <!-- <textarea class="form-control" rows="3"></textarea> -->
+                <textarea id="editor4" class="form-control" rows="8" placeholder="接口调用后出参" name="editor4"></textarea>
+            </div>
+        </form>
+    </div>
+
+    <hr style="border : 1px dashed blue;" />
+
+
+    <!-- <div class="container-fluid"> -->
+    <div class="container-fluid">
+
+        <form class="form-inline">
+            <h3>功能1：环境配置同步 </h3>
+
+            <div class="form-group">
+                <label for="name">基准环境—必填项：</label>
+                <select class="form-control" id="baseenv" name="baseenv">
+                    <option value="h1">新网关灰度1(t.elong.com)</option>
+                    <option value="h2">新网关灰度2(huidu2.vip.elong)</option>
+                    <option value="h3">新网关灰度3(huidu3.vip.elong)</option>
+                </select>
+                <span>===>></span>
+                <span>同步环境—必填项：</span>
+                <select class="form-control" id="synenv" name="synenv">
+                    <option value="">请选择</option>
+                    <option value="h1">新网关灰度1(t.elong.com)</option>
+                    <option value="h2">新网关灰度2(huidu2.vip.elong)</option>
+                    <option value="h3">新网关灰度3(huidu3.vip.elong)</option>
+                </select>
+                <span>是否全部同步并生效下发:</span>
+                <select class="form-control" id="syn1" name="syn">
+                    <option value=0>否</option>
+                    <option value=1>是</option>
+                </select>
+                <button type="button" class="btn btn-warning" id="tj1" onclick="syscondata()">提交</button>
+            </div>
+        </form>
+
+    </div>
+    </div>
+
+
+
+    <hr style="border : 1px dashed blue;" />
+
+
+    <div class="container-fluid">
+        <form class="form-inline">
+            <h3>功能2：多环境新增配置文件 </h3>
+            <div class="form-group">
+                <label for="name">基准环境—必填项：</label>
+                <select class="form-control" id="baseenv2" name="baseenv2">
+                    <option value="h1">新网关灰度1(t.elong.com)</option>
+                    <option value="h2">新网关灰度2(huidu2.vip.elong)</option>
+                    <option value="h3">新网关灰度3(huidu3.vip.elong)</option>
+                </select>
+                <span>是否全部同步并生效下发:</span>
+                <select class="form-control" id="syn2" name="syn2">
+                    <option value=0>否</option>
+                    <option value=1>是</option>
+                </select>
+                <button type="button" class="btn btn-warning" id="tj2" onclick="addcon()">提交</button>
+        </form>
+        <form class="form-inline">
+
+            <div class="form-group">
+                <label>新增配置文件key:</label>
+                <input class="form-control" type="text" id="key2" name="key2">
+            </div>
+        </form>
+    </div>
+
+    <div class="container-fluid">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="name">新增配置文件value:</label>
+                <textarea id="editor2" class="form-control" rows="8" name="editor2"></textarea>
+            </div>
+        </form>
+    </div>
+
+    <hr style="border : 1px dashed blue;" />
+
+    <div class="container-fluid">
+        <form class="form-inline">
+            <h3>功能3：多环境修改配置文件 </h3>
+            <div class="form-group">
+                <label for="name">基准环境—必填项：</label>
+                <select class="form-control" id="baseenv3" name="baseenv3">
+                    <option value="h1">新网关灰度1(t.elong.com)</option>
+                    <option value="h2">新网关灰度2(huidu2.vip.elong)</option>
+                    <option value="h3">新网关灰度3(huidu3.vip.elong)</option>
+                </select>
+                <span>是否全部同步并生效下发:</span>
+                <select class="form-control" id="syn3" name="syn3">
+                    <option value=0>否</option>
+                    <option value=1>是</option>
+                </select>
+                <button type="button" class="btn btn-warning" id="tj3">提交</button>
+        </form>
+        <form class="form-inline">
+
+            <div class="form-group">
+                <label>修改配置文件key:</label>
+                <input class="form-control" type="text" id="key3" name="key3">
+            </div>
+        </form>
+    </div>
+
+    <div class="container-fluid">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="name">修改配置文件value:</label>
+                <textarea id="editor3" class="form-control" rows="8" name="editor3"></textarea>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+    <script>
+
+        function syscondata() {
+            var baseenv = $('#baseenv').val();
+            var synenv = $('#synenv').val();
+            var syn = $('#syn1').val();
+
+            try {
+                if (baseenv.length == 0 || synenv.length == 0) {
+                    return alert('同步环境必填项，请检查后重试！');
+
+                }
+                $('button').attr("disabled", true);
+
+            } catch (error) {
+                return alert('服务器异常，稍后再试');
+
+            }
+
+
+
+            $.ajax({
+                url: '/syscon',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify({ baseenv: baseenv, synenv: synenv, syn: syn }),
+                success: function (respone) {
+                    $('button').attr("disabled", false);
+
+
+
+                    if (respone.erron == 0) {
+                        alert('成功')
+                        var ou = $('#editor4');
+                        var istr = '';
+                        var li = respone.errmsg
+                        for (var i in li) {
+                            istr = istr + li[i] + '\n' + '\n';
+                        }
+
+                        $('#editor4').val(istr + '以下为同步配置文件：' + '\n' + respone.addconfig);
+                        return true
+
+
+                    }
+                    else if (respone.erron == 4502) {
+                        return alert('COOKIES错误请或者COOKIES已经过期');
+                    }
+                    else {
+
+                        alert('请求失败，请检查入参或者稍后再试')
+                        var ou = $('#editor4');
+                        var istr = '';
+                        var li = respone.errmsg
+                        for (var i in li) {
+                            istr = istr + li[i] + '\n' + '\n';
+                        }
+
+                        $('#editor4').val(istr);
+                        return true
+
+
+                    }
+                },
+                error: function () {
+                    alert('服务器超时，请重试！');
+                    $('button').attr("disabled", false);
+
+                }
+            });
+        };
+
+
+
+
+
+
+        function addcon() {
+            var editor2 = $('#editor2').val();
+            var env2 = $('#baseenv2').val();
+            var syn2 = $('#syn2').val();
+            var key2 = $('#key2').val();
+
+            try {
+                if (editor2.length == 0 || key2.length == 0) {
+                    return alert('key和valu必填项，请检查后重试！');
+
+                }
+                $('button').attr("disabled", true);
+
+            } catch (error) {
+                return alert('服务器异常，稍后再试');
+
+            }
+
+
+
+            $.ajax({
+                url: '/addcon',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify({ jsonStr: editor2, key: key2, env: env2, syn: syn2, typeurl: '1' }),
+                success: function (respone) {
+                    $('button').attr("disabled", false);
+
+
+
+                    if (respone.erron == 0) {
+                        alert('成功')
+                        var ou = $('#editor4');
+                        var istr = '';
+                        var li = respone.errmsg
+                        for (var i in li) {
+                            istr = istr + li[i] + '\n' + '\n';
+                        }
+
+                        $('#editor4').val(istr);
+                        return true
+
+
+                    }
+                    else if (respone.erron == 4502) {
+                        return alert('COOKIES错误请或者COOKIES已经过期');
+                    }
+                    else {
+
+                        alert('请求失败，请检查入参或者稍后再试')
+                        var ou = $('#editor4');
+                        var istr = '';
+                        var li = respone.errmsg
+                        for (var i in li) {
+                            istr = istr + li[i] + '\n' + '\n';
+                        }
+
+                        $('#editor4').val(istr);
+                        return true
+
+
+
+                    }
+                },
+                error: function () {
+                    alert('服务器超时，请重试！');
+                    $('button').attr("disabled", false);
+
+                }
+            });
+        };
+
+        function recookies() {
+            var key4 = $('#key4').val();
+
+
+            try {
+                if (key4.length == 0) {
+                    return alert('cookies必填项，请检查后重试！');
+
+                }
+                $('button').attr("disabled", true);
+
+
+            } catch (error) {
+
+
+                return alert('请求失败,请检查入参或者稍后再试');
+
+            };
+
+            $.ajax({
+                url: '/recookies',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify({ jsonStr: key4 }),
+                success: function (respone) {
+                    $('button').attr("disabled", false);
+
+
+                    if (respone.erron == 0) {
+                        alert('cookies替换成功');
+                        $('#key4').val('');
+
+
+                    } else if (respone.erron == 303) {
+                        return alert('COOKIES错误请或者COOKIES已经过期');
+                    }
+
+
+
+                    else {
+
+
+                        return alert('请求失败,请检查入参或者稍后再试');
+
+                    }
+                },
+                error: function () {
+                    $('button').attr("disabled", false);
+
+                    return alert('请求失败,请检查入参或者稍后再试');
+
+                }
+            });
+        };
+
+
+
+
+        $(function () {
+
+            $('#tj3').click(function () {
+                var editor3 = $('#editor3').val();
+                var env3 = $('#baseenv3').val();
+                var syn3 = $('#syn3').val();
+                var key3 = $('#key3').val();
+
+                try {
+                    if (editor3.length == 0 || key3.length == 0) {
+                        return alert('key和valu必填项，请检查后重试！');
+                    };
+                    $('button').attr("disabled", true);
+
+                } catch (error) {
+                    return alert('请求失败,请检查入参或者稍后再试');
+
+                }
+
+
+                $.ajax({
+                    url: '/addcon',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify({ jsonStr: editor3, key: key3, env: env3, syn: syn3, typeurl: '2' }),
+                    success: function (respone) {
+
+                        $('button').attr("disabled", false);
+
+
+                        if (respone.erron == 0) {
+                            alert('成功')
+                            var ou = $('#editor4');
+                            var istr = '';
+                            var li = respone.errmsg
+                            for (var i in li) {
+                                istr = istr + li[i] + '\n' + '\n';
+                            }
+
+                            $('#editor4').val(istr)
+
+                        } else if (respone.erron == 303) {
+                            alert('COOKIES错误请或者COOKIES已经过期');
+                            $('#editor4').val(respone.errmsg);
+                        }
+                        else {
+                            alert('请求失败,请检查入参或者稍后再试');
+                            var ou = $('#editor4');
+                            var istr = '';
+                            var li = respone.errmsg
+                            for (var i in li) {
+                                istr = istr + li[i] + '\n' + '\n';
+                            }
+
+                            $('#editor4').val(istr);
+                            return true
+
+
+
+                        }
+                    },
+                    error: function () {
+                        alert('服务器超时，请重试！');
+                        $('button').attr("disabled", false);
+
+                    }
+                });
+
+            });
+
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>

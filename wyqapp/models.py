@@ -45,3 +45,23 @@ class ages(BaseTable):
     class Meta:
         db_table = "ages"
         ordering = ['id']
+
+from django.db import models
+
+# Create your models here.
+
+class basephone(models.Model):
+    # CharField类型不能为空,最少要指定一个长度
+    phoneModel = models.CharField(max_length=32)
+    Brand = models.CharField(max_length=32)
+    width = models.CharField(max_length=32)
+    height = models.CharField(max_length=32)
+    NameCn = models.CharField(max_length=32)
+
+    class Meta:
+        managed = True
+        db_table = 'basephone'
+        app_label = "app_compatible"
+
+
+

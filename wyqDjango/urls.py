@@ -23,7 +23,7 @@ urlpatterns = [
     path('wyqapp/', include('wyqapp.urls')),
     path(r'login/',views.login,name='login'),
     path(r'loginq/',views.loginq,name='loginq'),
-    path(r'index',views.index),
+    path(r'',views.index),
     path(r'cutr',views.cutr),
     path(r'get_session/',views.get_session),
     path(r'set_session/',views.set_session),
@@ -38,5 +38,6 @@ urlpatterns = [
     path('wyqlogin', views.wyqlogin),
     path('fenye/', views.fenye),
     path('wyqadduser', views.wyqadduser),
+    path(r'synconfig', views.synconfig, name='sysnconfig'),
 
 ]

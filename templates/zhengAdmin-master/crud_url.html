@@ -66,7 +66,7 @@ $(function() {
 	});
 	// bootstrap table初始化
 	// http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
-    //$table.bootstrapTable('destroy');
+    $table.bootstrapTable('destroy');
         $table.bootstrapTable({
             //url: 'wyqadduser',
             url: 'static/resources/data/data1.json',
@@ -83,12 +83,13 @@ $(function() {
             showPaginationSwitch: true,
             clickToSelect: true,
             detailView: true,
-            detailFormatter: 'detailFormatter',
+            {#detailFormatter: 'detailFormatter',#}
             pagination: true,
             paginationLoop: false,
             classes: 'table table-hover table-no-bordered',
             //sidePagination: 'server',
-            //silentSort: false,
+            sidePagination: 'client',
+            silentSort: false,
             smartDisplay: false,
             idField: 'id',
             sortName: 'id',

@@ -75,17 +75,16 @@ WSGI_APPLICATION = 'wyqDjango.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#
-#             'ENGINE': 'django.db.backends.mysql',
-#             'NAME': 'HttpRunner',  # 新建数据库名
-#             'USER': 'root',  # 数据库登录名
-#             'PASSWORD': '',  # 数据库登录密码
-#             'HOST': '127.0.0.1',  # 数据库所在服务器ip地址
-#             'PORT': '3306',  # 监听端口 默认3306即可
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'basephone_contrast',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
 
 CACHES = {
             "default": {

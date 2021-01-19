@@ -4,7 +4,6 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, Invali
 
 import json
 from django.http import JsonResponse
-from django_redis import get_redis_connection
 from django import views
 from wyqapp.models import ages
 from utlis.error_code import RET
@@ -122,6 +121,7 @@ def index(request):
     return render(request, 'zhengAdmin-master/index.html')
 def cutr(request):
 
+    # return render(request, 'zhengAdmin-master/crud_url.html')
     # return render(request, 'zhengAdmin-master/crud_url.html')
     return render(request, 'zhengAdmin-master/crud_server.html')
 
@@ -330,6 +330,7 @@ def wyqadduser(request):
     sortnum = request.GET.get('sort')
     sortOrdernum = request.GET.get('sortOrder')
     right_boundary = int(page) * int(num)
+    print(right_boundary)
 
     #
     with open('static/resources/data/data2.json','r') as  f:
@@ -339,3 +340,7 @@ def wyqadduser(request):
     print(p)
     print(p['data']['totalCount'])
     return JsonResponse(p)
+
+def synconfig(request):
+    return render(request, 'zhengAdmin-master/synconfig.html')
+
